@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="styleWithoutToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="backgroundColor">@color/background</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
+
+    <style name="CustomRadioRed" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <!-- Change the colors as needed -->
+        <item name="android:buttonTint">@color/my_red</item>
+    </style>
+
+    <style name="CustomRadioBlack" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <!-- Change the colors as needed -->
+        <item name="android:buttonTint">@color/black</item>
+    </style>
+
+    <style name="CustomRadioGrey" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <!-- Change the colors as needed -->
+        <item name="android:buttonTint">@color/grey</item>
+    </style>
+</resources>
