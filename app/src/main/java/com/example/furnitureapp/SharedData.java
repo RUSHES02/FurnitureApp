@@ -4,24 +4,31 @@ import java.util.ArrayList;
 
 public class SharedData {
     private static SharedData instance;
-    private ArrayList<Integer> cart = new ArrayList<>();
+    private ArrayList<Furniture> cartItems;
+    private ArrayList<CartItem> selctedItems;
+
 
     private SharedData() {
-        // Private constructor to prevent direct instantiation
     }
 
     static {
         instance = new SharedData();
-        instance.cart = new ArrayList<>(); // Initialize your shared value here
+        instance.cartItems = new ArrayList<>();
+        instance.selctedItems = new ArrayList<>();
     }
 
     public static SharedData getInstance() {
         return instance;
     }
 
-    public ArrayList<Integer> getSharedValue() {
-        return cart;
+    public ArrayList<Furniture> getCartFurnitures() {
+        return cartItems;
     }
+
+    public ArrayList<CartItem> getSelectedFunitures() {
+        return selctedItems;
+    }
+
 
 }
 

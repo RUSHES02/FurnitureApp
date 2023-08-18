@@ -2,34 +2,36 @@ package com.example.furnitureapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.furnitureapp.Furniture;
 import com.example.furnitureapp.R;
 
 import java.util.ArrayList;
 
+import com.example.furnitureapp.SharedData;
 import com.example.furnitureapp.activities.ProductPage;
 import com.squareup.picasso.Picasso;
 
 public class ExploreHorizontalAdapter extends RecyclerView.Adapter<ExploreHorizontalAdapter.ExploreHolder> {
 
-    private ArrayList<Integer> itemImages;
-    private ArrayList<String> itemNames;
-    private ArrayList<String> itemPrices;
+    private ArrayList<Furniture> furnitures;
+    ArrayList<Furniture> cartItems = new ArrayList<>();
     private Context context;
     private RecyclerViewClickListener listener;
 
-    public ExploreHorizontalAdapter(ArrayList<Integer> itemImages, ArrayList<String> itemNames,ArrayList<String> itemPrices, RecyclerViewClickListener listener, Context context){
-        this.itemImages = itemImages;
-        this.itemNames = itemNames;
-        this.itemPrices = itemPrices;
+    public ExploreHorizontalAdapter(ArrayList<Furniture> furnitures, RecyclerViewClickListener listener, Context context){
+        this.furnitures= furnitures;
         this.context = context;
         this.listener = listener;
     }
@@ -43,14 +45,30 @@ public class ExploreHorizontalAdapter extends RecyclerView.Adapter<ExploreHorizo
 
     @Override
     public void onBindViewHolder(@NonNull ExploreHolder holder, int position) {
-        Picasso.get().load(itemImages.get(position)).placeholder(R.drawable.ic_profile).into(holder.imageFurniture);
-        holder.textName.setText(itemNames.get(position));
-        holder.textPrice.setText("₹"+ itemPrices.get(position));
+
+        SharedData sharedData = SharedData.getInstance();
+        cartItems = sharedData.getCartFurnitures();
+
+        Furniture furniture = furnitures.get(position);
+        Picasso.get().load(furniture.getImage()).placeholder(R.drawable.ic_profile).into(holder.imageFurniture);
+        holder.textName.setText(furniture.getName());
+        holder.textPrice.setText("₹"+ furniture.getPrice());
+
+        holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Furniture item = new Furniture(furniture.getImage(),furniture.getName(),furniture.getPrice());
+                cartItems.add(furniture);
+                Log.d("Cart add", String.valueOf(cartItems.size()));
+                Toast toast = Toast.makeText(context, "Item Added", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return itemNames.size();
+        return furnitures.size();
     }
 
     public interface RecyclerViewClickListener {
@@ -60,12 +78,14 @@ public class ExploreHorizontalAdapter extends RecyclerView.Adapter<ExploreHorizo
     class ExploreHolder extends RecyclerView.ViewHolder{
         TextView textName, textPrice;
         ImageView imageFurniture;
+        ImageButton buttonAdd;
         public ExploreHolder(@NonNull View itemView, final RecyclerViewClickListener listener) {
             super(itemView);
 
             imageFurniture = itemView.findViewById(R.id.imageFurniture);
             textName = itemView.findViewById(R.id.textName);
             textPrice = itemView.findViewById(R.id.textPrice);
+            buttonAdd  = itemView.findViewById(R.id.buttonAdd);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

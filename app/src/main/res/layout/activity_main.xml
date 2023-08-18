@@ -101,7 +101,7 @@
         app:srcCompat="@drawable/ic_cart" />
 
     <ImageView
-        android:id="@+id/imageViewCartPresent"
+        android:id="@+id/imageCartDot"
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_marginStart="-10dp"

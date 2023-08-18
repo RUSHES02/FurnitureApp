@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardIncreDecre"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hapticFeedbackEnabled="true"
+    app:cardBackgroundColor="@color/background"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
+
+    <LinearLayout
+        android:id="@+id/marr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageDec"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="10dp"
+            app:srcCompat="@drawable/ic_decrement" />
+
+        <TextView
+            android:id="@+id/textQty"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="10dp"
+            android:fontFamily="@font/poppins_light"
+            android:text="2"
+            android:textAlignment="center"
+            android:textColor="@color/gery_2"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/imageInc"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="10dp"
+            app:srcCompat="@drawable/ic_increment" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
