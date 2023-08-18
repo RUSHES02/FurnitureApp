@@ -3,9 +3,11 @@ package com.example.furnitureapp.activities;
 import static java.security.AccessController.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,8 +38,11 @@ public class MainActivity extends AppCompatActivity implements ExploreHorizontal
     ImageView imageFurniture, imageCart, imageCartDot;
     TextView textName, textPrice;
     ImageButton imageButtonOpen;
+    CardView suggestionCard;
     private int currentIndex = -1;
 
+    ObjectAnimator fadeIn; // 1 second
+    ObjectAnimator fadeOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements ExploreHorizontal
         imageButtonOpen = findViewById(R.id.imageButtonOpen);
         imageCart = findViewById(R.id.imageCart);
         imageCartDot = findViewById(R.id.imageCartDot);
+        suggestionCard = findViewById(R.id.cardSuggestionsFurniture);
 
         imageCartDot.setVisibility(View.GONE);
         if(cartItems.size() > 0){
@@ -86,14 +92,29 @@ public class MainActivity extends AppCompatActivity implements ExploreHorizontal
                 startActivity(intent);
             }
         });
+
+//        fadeIn = ObjectAnimator.ofFloat(imageFurniture, "alpha", 0f, 1f);
+//        fadeIn.setDuration(500); // 1 second
+
+//        fadeOut = ObjectAnimator.ofFloat(imageFurniture, "alpha", 1f, 0f);
+//        fadeOut.setDuration(500); // 1 second
     }
 
     private void updateImage() {
+        boolean fade = true;
         currentIndex = (currentIndex + 1) % 4;
         Furniture item = furnitures.get(currentIndex);
         imageFurniture.setImageResource(item.getImage());
         textName.setText(item.getName());
         textPrice.setText("₹" + item.getPrice());
+
+//        if (fade) {
+//            fade = false;
+//            fadeIn.start(); // Start the fadeIn animation
+//        } else {
+//            fade = true;
+//            fadeOut.start(); // Start the fadeOut animation
+//        }
 
         imageButtonOpen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements ExploreHorizontal
             }
         }, 3000);
     }
+
 
     @Override
     protected void onDestroy() {
